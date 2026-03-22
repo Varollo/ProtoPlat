@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="ProtoPlat.csproj" />
+  <Project Path="InputSystem.csproj" />
+</Solution>
