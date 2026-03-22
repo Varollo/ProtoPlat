@@ -1,4 +1,3 @@
-using ProtoPlat.Input;
 using UnityEngine;
 
 namespace ProtoPlat.Player.Movement.States

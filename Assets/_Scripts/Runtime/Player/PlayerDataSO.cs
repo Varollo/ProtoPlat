@@ -20,7 +20,7 @@ namespace ProtoPlat
 
         #region Jump
         [Header("Jump")]
-        [SerializeField] private float jumpForce = 500f;
+        [SerializeField] private float jumpForce = 2000f;
         [SerializeField, Min(1f)] private float fallSpeedMult = 1.1f;
         [SerializeField, Min(1f)] private float glideSpeedMult = 1.05f;
         [SerializeField, Range(0f, 1f)] private float riseSpeedMult = .9f;
@@ -31,6 +31,13 @@ namespace ProtoPlat
         public float GlideSpeedMult => glideSpeedMult;
         public float RiseSpeedMult => riseSpeedMult;
         public float FloatSpeedMult => floatSpeedMult;
+        #endregion
+
+        #region Physics
+        [Header("Physics")]
+        [SerializeField, Min(0f)] private Vector2 maxVelocity = new(float.PositiveInfinity, 30f);
+
+        public Vector2 MaxVelocity => maxVelocity;
         #endregion
     }
 }

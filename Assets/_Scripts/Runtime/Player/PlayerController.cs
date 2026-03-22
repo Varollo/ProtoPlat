@@ -17,7 +17,8 @@ namespace ProtoPlat.Player
             new PlayerMoveIdleState(),
             new PlayerMoveRunState(),
             new PlayerMoveBreakState(),
-            new PlayerMoveTurnState()
+            new PlayerMoveTurnState(),
+            new PlayerMoveLandState()
         );
 
         private readonly PlayerJumpController _jumpController = new();
@@ -61,11 +62,11 @@ namespace ProtoPlat.Player
 
         private void FixedUpdate()
         {
-            _rb.linearVelocity = new()
-            {
-                x = _moveStateMachine.GetVelocityX(_currentFrameData),
-                y = _jumpStateMachine.GetVelocityY(_currentFrameData)
-            };
+            _rb.linearVelocityX = Mathf.Clamp(_moveStateMachine.GetVelocityX(_currentFrameData),
+                -playerData.MaxVelocity.x, playerData.MaxVelocity.x);
+            
+            _rb.linearVelocityY = Mathf.Clamp(_jumpStateMachine.GetVelocityY(_currentFrameData), 
+                -playerData.MaxVelocity.y, playerData.MaxVelocity.y);
         }
 
         private void InitialzeStateMachines()
@@ -89,7 +90,10 @@ namespace ProtoPlat.Player
         private void UpdateControllers()
         {
             if (_jumpController.TryJump(_currentFrameData, out var jumpForce))
-                _rb.AddForceY(jumpForce);
+            {
+                _rb.linearVelocityY = 0;
+                _rb.AddForceY(jumpForce, ForceMode2D.Force);
+            }
 
             if (_moveController.TryTransition(_currentFrameData, _moveStateMachine.CurrentState, out var nextMoveState))
                 _moveStateMachine.Transition(nextMoveState);

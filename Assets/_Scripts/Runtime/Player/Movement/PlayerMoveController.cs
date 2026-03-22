@@ -11,7 +11,11 @@ namespace ProtoPlat.Player.Movement
             bool hasInput = frameData.MoveInput != 0;
             bool isMoving = Mathf.Abs(frameData.Velocity.x) > 1f;
             bool isTurning = hasInput && isMoving && Mathf.Sign(frameData.MoveInput) != Mathf.Sign(frameData.Velocity.x);
-            
+            bool isLanding = frameData.IsGrounded && frameData.Velocity.y < -1f;
+
+            if (isLanding)
+                return typeof(PlayerMoveLandState);
+
             if (isTurning)
                 return typeof(PlayerMoveTurnState);
 

@@ -16,3 +16,9 @@ MonoBehaviour:
   accRate: 1
   breakFriction: 0.9
   turnFriction: 0.75
+  jumpForce: 2000
+  fallSpeedMult: 1.1
+  glideSpeedMult: 1.05
+  riseSpeedMult: 0.9
+  floatSpeedMult: 1
+  maxVelocity: {x: Infinity, y: 30}
