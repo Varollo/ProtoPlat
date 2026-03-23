@@ -15,3 +15,4 @@ MonoBehaviour:
   _loop: 1
   _frames:
   - {fileID: -7246173460361144438, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: 497876433680310357, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
