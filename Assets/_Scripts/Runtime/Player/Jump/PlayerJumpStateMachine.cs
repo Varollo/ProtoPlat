@@ -1,11 +1,15 @@
+using ProtoPlat.Player.Jump.States;
 using ProtoPlat.StateMachines;
 
 namespace ProtoPlat.Player.Jump
 {
     public class PlayerJumpStateMachine : AnimatedStateMachine<PlayerJumpState>
     {
-        public PlayerJumpStateMachine(params PlayerJumpState[] states)
-            : base(states) { }
+        public PlayerJumpStateMachine() : base(
+            new PlayerJumpFallState(),
+            new PlayerJumpRiseState(),
+            new PlayerJumpGlideState(),
+            new PlayerJumpFloatState()) { }
 
         public float GetVelocityY(PlayerFrameData frameData)
         {

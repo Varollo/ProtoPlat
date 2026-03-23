@@ -1,11 +1,16 @@
+using ProtoPlat.Player.Movement.States;
 using ProtoPlat.StateMachines;
 
 namespace ProtoPlat.Player.Movement
 {
     public class PlayerMoveStateMachine : AnimatedStateMachine<PlayerMoveState>
     {
-        public PlayerMoveStateMachine(params PlayerMoveState[] states) 
-            : base(states) { }
+        public PlayerMoveStateMachine() : base(
+            new PlayerMoveIdleState(),
+            new PlayerMoveRunState(),
+            new PlayerMoveBreakState(),
+            new PlayerMoveTurnState(),
+            new PlayerMoveLandState()) { }
 
         public float GetVelocityX(PlayerFrameData frameData)
         {

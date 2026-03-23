@@ -1,13 +1,15 @@
 using UnityEngine;
 
-namespace ProtoPlat
+namespace ProtoPlat.Components
 {
     public class GroundChecker : MonoBehaviour
     {
         [SerializeField] private LayerMask groundLayerMask;
+        [SerializeField] private LayerMask platformLayerMask;
         [SerializeField] private float detectionRadius = 1f;
 
         private bool? _grounded;
+        private bool? _onPlatform;
 
         public bool IsGrounded
         {
@@ -19,10 +21,23 @@ namespace ProtoPlat
             }
         }
 
+        public bool IsOnPlatform
+        {
+            get
+            {
+                if (!_onPlatform.HasValue)
+                    _onPlatform = Physics2D.OverlapCircle(transform.position, detectionRadius, platformLayerMask);
+                return _onPlatform.Value;
+            }
+        }
+
         private void LateUpdate()
         {
             if (_grounded.HasValue)
                 _grounded = null;
+
+            if (_onPlatform.HasValue)
+                _onPlatform = null;
         }
 
 #if UNITY_EDITOR

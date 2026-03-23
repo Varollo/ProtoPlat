@@ -6,11 +6,11 @@ namespace ProtoPlat.Player.Jump
 {
     public class PlayerJumpController : PlayerStateMachineController
     {
-        public bool TryJump(PlayerFrameData frameData, out float jumpForce)
+        public bool Jump(PlayerFrameData frameData, out float jumpForce)
         {
             jumpForce = 0f;
 
-            if (frameData.IsGrounded && InputManager.Jump.IsJustPressed)
+            if (frameData.IsGrounded)
                 jumpForce = frameData.PlayerData.JumpForce;
 
             return jumpForce != 0f;
