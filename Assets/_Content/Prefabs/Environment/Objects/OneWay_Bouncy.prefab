@@ -107,6 +107,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3560639130588631578, guid: 0ffda47dab65c104983ae21418f08ad6, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5587030231386400673, guid: 0ffda47dab65c104983ae21418f08ad6, type: 3}
       propertyPath: m_Name
       value: OneWay_Bouncy

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ProtoPlat
+namespace ProtoPlat.Components
 {
     public class LimitCameraBounds : MonoBehaviour
     {
