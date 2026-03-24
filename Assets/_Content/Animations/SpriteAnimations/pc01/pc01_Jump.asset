@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b1a50b3e1666d1429f8a2a591a8af15, type: 3}
-  m_Name: PlayerTurn
+  m_Name: pc01_Jump
   m_EditorClassIdentifier: ProtoPlat::ProtoPlat.Animation.SpriteAnimationSO
   _loop: 1
   _frames:
-  - {fileID: -8738424566878280292, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: -584136468514231871, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}

@@ -9,5 +9,6 @@ namespace ProtoPlat.Animation
         [SerializeField] private Sprite[] _frames;
 
         public Sprite[] Frames => _frames;
+        public bool Loop => _loop;
     }
 }

@@ -51,7 +51,10 @@ namespace ProtoPlat.Animation
         public void UpdateFrame(int frameCount)
         {
             SpriteAnimationSO animation = GetAnimation(CurrentAnimationName);
-            Sprite frame = animation.Frames[_internalFrameCount % animation.Frames.Length];
+            
+            Sprite frame = animation.Loop
+                ? animation.Frames[_internalFrameCount % animation.Frames.Length]
+                : animation.Frames[Mathf.Clamp(_internalFrameCount, 0, animation.Frames.Length - 1)];
 
             spriteRenderer.sprite = frame;
 

@@ -10,8 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b1a50b3e1666d1429f8a2a591a8af15, type: 3}
-  m_Name: PlayerJump
+  m_Name: pc01_Hurt
   m_EditorClassIdentifier: ProtoPlat::ProtoPlat.Animation.SpriteAnimationSO
   _loop: 1
   _frames:
-  - {fileID: -584136468514231871, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: 2350651124210028617, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: -2740182277482796434, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: 8423129267777549679, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}
+  - {fileID: -1780749717744926538, guid: 7c5178b9f5cc46245b90ad7e2b38a828, type: 3}

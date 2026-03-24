@@ -3,6 +3,8 @@ using ProtoPlat.Components;
 using ProtoPlat.Input;
 using ProtoPlat.Player.Jump;
 using ProtoPlat.Player.Movement;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace ProtoPlat.Player
@@ -25,6 +27,8 @@ namespace ProtoPlat.Player
 
         private Rigidbody2D _rb;
         private PlayerFrameData _currentFrameData;
+
+        private bool _controllable = true;
 
         private void Awake()
         {
@@ -50,6 +54,9 @@ namespace ProtoPlat.Player
 
         private void Update()
         {
+            if (!_controllable)
+                return;
+
             UpdateFrameData();
             UpdatePlayerActions();
             UpdateControllers();
@@ -58,7 +65,30 @@ namespace ProtoPlat.Player
 
         private void FixedUpdate()
         {
+            if (!_controllable)
+                return;
+
             UpdateVelocity();
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (!_controllable)
+                return;
+
+            if (collision.collider.CompareTag("Harmful"))
+                StartCoroutine(HurtSequence(collision.GetContact(0).normal));
+        }
+
+        private IEnumerator HurtSequence(Vector2 collisionNormal)
+        {
+            _controllable = false;
+            
+            animator.Play("hurt");
+            _rb.AddForce(new(collisionNormal.x * 15 + UnityEngine.Random.Range(-10f, 10f), collisionNormal.y * 20), ForceMode2D.Impulse);
+            yield return new WaitForSeconds(.4f);
+
+            _controllable = true;
         }
 
         private void UpdateFrameData()
