@@ -16,6 +16,8 @@ namespace ProtoPlat.Components
         private Vector2 _lookAheadOffset;
         private Vector3 _focalPoint;
 
+        public Vector3 FocalPoint => _focalPoint;
+
         private void Update()
         {
             Follow(FollowUpdateType.Normal);
@@ -67,6 +69,7 @@ namespace ProtoPlat.Components
             smoothedPos.z = transform.position.z;
 
             transform.position = smoothedPos;
+
             _lastFocalPoint = _focalPoint;
         }
 
