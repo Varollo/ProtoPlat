@@ -31,6 +31,11 @@ namespace ProtoPlat.Components
             }
         }
 
+        public RaycastHit2D GetGround()
+        {
+            return Physics2D.Raycast(transform.position, Vector2.down, detectionRadius, groundLayerMask);
+        }
+
         private void LateUpdate()
         {
             if (_grounded.HasValue)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace ProtoPlat.Animation
 {
@@ -9,6 +10,8 @@ namespace ProtoPlat.Animation
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private bool autoPlayFirst = true;
         [SerializeField] private AnimNamePair[] animations;
+        [Space]
+        public AnimChangeUnityEvent OnAnimationChange;
 
         private Dictionary<string, SpriteAnimationSO> _animMap;
         private int _internalFrameCount;
@@ -43,7 +46,10 @@ namespace ProtoPlat.Animation
                 return;
 
             if (CurrentAnimationName != animationName)
+            {
                 _internalFrameCount = 0;
+                OnAnimationChange?.Invoke(animationName);
+            }
             
             CurrentAnimationName = animationName;
         }
@@ -71,5 +77,8 @@ namespace ProtoPlat.Animation
             public string Name;
             public SpriteAnimationSO Animation;
         }
+
+        [System.Serializable]
+        public class AnimChangeUnityEvent : UnityEvent<string> { }
     }
 }

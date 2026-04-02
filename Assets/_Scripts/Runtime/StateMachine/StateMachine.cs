@@ -6,6 +6,8 @@ namespace ProtoPlat.StateMachines
 {
     public abstract class StateMachine<TState> where TState : IState
     {
+        public event Action<Type> OnStateChange;
+
         private readonly Dictionary<Type, TState> _states = new();
 
         protected StateMachine(params TState[] states)
@@ -34,6 +36,7 @@ namespace ProtoPlat.StateMachines
             
             CurrentState = newState;
             OnTransition(oldState, newState);
+            OnStateChange?.Invoke(nextStateType);
         }
 
         protected virtual void OnTransition(TState prevState, TState nextState) { }

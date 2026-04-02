@@ -7,11 +7,11 @@ namespace ProtoPlat.Player
         public bool TryTransition(PlayerFrameData frameData, PlayerState currentState, out Type nextStateType)
         {
             nextStateType = GetNextStateType(frameData);
+
             return nextStateType != null
                 && (currentState == null
-                    || nextStateType != currentState.GetType());
+                || nextStateType != currentState.GetType());
         }
-
         protected abstract Type GetNextStateType(PlayerFrameData frameData);
     }
 }

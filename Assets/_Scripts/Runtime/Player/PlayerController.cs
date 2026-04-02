@@ -1,8 +1,10 @@
 using ProtoPlat.Animation;
 using ProtoPlat.Components;
+using ProtoPlat.Events;
 using ProtoPlat.Input;
 using ProtoPlat.Player.Jump;
 using ProtoPlat.Player.Movement;
+using ProtoPlat.Player.Movement.States;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -24,6 +26,7 @@ namespace ProtoPlat.Player
         [SerializeField] private SpriteAnimator animator;
         [SerializeField] private GroundChecker groundChecker;
         [SerializeField] private PlatformDropController platformDropper;
+        [SerializeField] private GameEventSO playerEvents;
 
         private Rigidbody2D _rb;
         private PlayerFrameData _currentFrameData;
@@ -37,6 +40,9 @@ namespace ProtoPlat.Player
 
         private void OnEnable()
         {
+            _moveStateMachine.OnStateChange += OnMoveStateChange;
+            _jumpStateMachine.OnStateChange += OnJumpStateChange;
+
             _actionController.OnJump += PlayerJumpHandler;
             _actionController.OnDrop += PlayerDropHandler;
         }
@@ -83,7 +89,7 @@ namespace ProtoPlat.Player
         private IEnumerator HurtSequence(Vector2 collisionNormal)
         {
             _controllable = false;
-            
+
             animator.Play("hurt");
             _rb.AddForce(new(collisionNormal.x * 15 + UnityEngine.Random.Range(-10f, 10f), collisionNormal.y * 20), ForceMode2D.Impulse);
             yield return new WaitForSeconds(.4f);
@@ -94,6 +100,7 @@ namespace ProtoPlat.Player
         private void UpdateFrameData()
         {
             bool isPressingDown = InputManager.Move.Value.y < 0;
+            Vector2 lateVelocity = _currentFrameData.Velocity;
 
             _currentFrameData = new()
             {
@@ -104,6 +111,7 @@ namespace ProtoPlat.Player
                 StartJump = InputManager.Jump.IsJustPressed,
                 StartDrop = InputManager.Move.IsJustPressed && isPressingDown,
                 Velocity = _rb.linearVelocity,
+                LateVelocity = lateVelocity,
                 IsGrounded = groundChecker.IsGrounded,
                 IsOnPlatform = groundChecker.IsOnPlatform,
             };
@@ -149,6 +157,21 @@ namespace ProtoPlat.Player
         {
             _rb.linearVelocityY = 0;
             _rb.AddForceY(playerData.JumpForce);
+
+            playerEvents.Raise(PlayerEvents.Jump);
+        }
+
+        private void OnMoveStateChange(Type newStateType)
+        {
+            if (newStateType == typeof(PlayerMoveRunState))
+                playerEvents.Raise(PlayerEvents.Move);
+
+            else if (newStateType == typeof(PlayerMoveBreakState))
+                playerEvents.Raise(PlayerEvents.Stop);
+        }
+
+        private void OnJumpStateChange(Type newStateType)
+        {
         }
     }
 }

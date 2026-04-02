@@ -10,7 +10,9 @@ namespace ProtoPlat.Player
         public bool DropInput;
         public bool StartJump;
         public bool StartDrop;
+        public bool Landed;
         public Vector2 Velocity;
+        public Vector2 LateVelocity;
         public bool IsGrounded;
         public bool IsOnPlatform;
     }
